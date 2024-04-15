@@ -4,27 +4,27 @@
   <meta charset="utf-8">
   <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
   <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="DESCRIPTION META TAG">
-  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
-  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
-  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <meta name="description" content="OpenCapBench, a benchmark to bridge the gap between pose estimation and biomechanics.">
+  <meta property="og:title" content="OpenCapBench"/>
+  <meta property="og:description" content="OpenCapBench, a benchmark to bridge the gap between pose estimation and biomechanics."/>
+  <meta property="og:url" content="https://yonigozlan.github.io/OpenCapBench/"/>
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
   <meta property="og:image" content="static/image/your_banner_image.png" />
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
 
 
-  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
-  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <meta name="twitter:title" content="OpenCapBench">
+  <meta name="twitter:description" content="OpenCapBench, a benchmark to bridge the gap between pose estimation and biomechanics.">
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
   <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
   <meta name="twitter:card" content="summary_large_image">
   <!-- Keywords for your paper to be indexed by-->
-  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="keywords" content="OpenCapBench, Pose estimation, Biomechanics, Kinematics, SMPL">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <title>Academic Project Page</title>
+  <title>OpenCapBench</title>
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
   rel="stylesheet">
 
@@ -159,10 +159,10 @@
         <div class="content has-text-justified">
           <p>
 Pose estimation has promised to impact healthcare by enabling more practical methods to quantify nuances of human movement and biomechanics.
-However, despite the inherent connection between pose estimation and biomechanics, these disciplines have largely remained disparate. 
-For example, most current pose estimation benchmarks use metrics such as Mean Per Joint Position Error, percentage of correct keypoints, or mean Average Precision to assess performance, without quantifying kinematic and physiological correctness - key aspects for biomechanics. 
-To alleviate this challenge, we develop OpenCapBench to offer an easy-to-use unified benchmark to assess common tasks in human pose estimation, evaluated under physiological constraints. OpenCapBench  computes consistent kinematic metrics through joints angles provided by an open source musculoskeletal modeling software (OpenSim). 
-Through OpenCapBench, we demonstrate that current pose estimation models use keypoints that are too sparse for accurate biomechanics analysis. To mitigate this challenge, we introduce SynthPose, a new approach that enables finetuning of pre-trained 2D human pose models to predict an arbitrarily-denser set of keypoints for accurate kinematic analysis through the use of synthetic data. Incorporating such finetuning on synthetic data of prior models lead to twofold reduced joint angles errors. Moreover, OpenCapBench allows users to benchmark their own developed models on our clinically-relevant cohort. 
+However, despite the inherent connection between pose estimation and biomechanics, these disciplines have largely remained disparate.
+For example, most current pose estimation benchmarks use metrics such as Mean Per Joint Position Error, percentage of correct keypoints, or mean Average Precision to assess performance, without quantifying kinematic and physiological correctness - key aspects for biomechanics.
+To alleviate this challenge, we develop OpenCapBench to offer an easy-to-use unified benchmark to assess common tasks in human pose estimation, evaluated under physiological constraints. OpenCapBench  computes consistent kinematic metrics through joints angles provided by an open source musculoskeletal modeling software (OpenSim).
+Through OpenCapBench, we demonstrate that current pose estimation models use keypoints that are too sparse for accurate biomechanics analysis. To mitigate this challenge, we introduce SynthPose, a new approach that enables finetuning of pre-trained 2D human pose models to predict an arbitrarily-denser set of keypoints for accurate kinematic analysis through the use of synthetic data. Incorporating such finetuning on synthetic data of prior models lead to twofold reduced joint angles errors. Moreover, OpenCapBench allows users to benchmark their own developed models on our clinically-relevant cohort.
 Overall, OpenCapBench bridges the computer vision and biomechanics communities, aiming to drive simultaneous advances in both areas.
           </p>
         </div>
@@ -181,7 +181,7 @@ Overall, OpenCapBench bridges the computer vision and biomechanics communities, 
   <!-- Your image here -->
     <img src="static/images/fine_tuning_pipeline_synthpose.jpg" alt="MY ALT TEXT"/>
     <h2 class="subtitle has-text-centered">
-      SynthPose: a new method leveraging finetuning of pose estimation models on synthetic data to predict an arbitrary set of 2D keypoints. 
+      SynthPose: a new method leveraging finetuning of pose estimation models on synthetic data to predict an arbitrary set of 2D keypoints.
     </h2>
   </div>
 </div>
@@ -190,53 +190,72 @@ Overall, OpenCapBench bridges the computer vision and biomechanics communities, 
 </section>
 <!-- End image header -->
 
-<!-- Teaser video-->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
-        <!-- Your video here -->
-        <source src="static/videos/banner_video.mp4"
-        type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
-    </div>
-  </div>
-</section>
-<!-- End teaser video -->
-
-
 
 <!-- Image carousel -->
-<section class="hero is-small">
+<section class="hero is-small is-light">
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
        <div class="item">
         <!-- Your image here -->
+        <img src="static/images/viz_1.png" alt="MY ALT TEXT"/>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/viz_2.png" alt="MY ALT TEXT"/>
+      </div>
+    </div>
+    <h2 class="subtitle has-text-centered">
+      SynthPose anatomical markers predictions on OpenCap subjects, with OpenCapBench kinematic outputs.
+    </h2>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+<!--
+
+Teaser video
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video poster="" id="tree" autoplay controls muted loop height="100%">
+        <source src="static/videos/banner_video.mp4"
+        type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+       <div class="item">
         <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
         <h2 class="subtitle has-text-centered">
           First image description.
         </h2>
       </div>
       <div class="item">
-        <!-- Your image here -->
         <img src="static/images/carousel2.jpg" alt="MY ALT TEXT"/>
         <h2 class="subtitle has-text-centered">
           Second image description.
         </h2>
       </div>
       <div class="item">
-        <!-- Your image here -->
         <img src="static/images/carousel3.jpg" alt="MY ALT TEXT"/>
         <h2 class="subtitle has-text-centered">
          Third image description.
        </h2>
      </div>
      <div class="item">
-      <!-- Your image here -->
       <img src="static/images/carousel4.jpg" alt="MY ALT TEXT"/>
       <h2 class="subtitle has-text-centered">
         Fourth image description.
@@ -246,22 +265,18 @@ Overall, OpenCapBench bridges the computer vision and biomechanics communities, 
 </div>
 </div>
 </section>
-<!-- End image carousel -->
 
 
 
 
-<!-- Youtube video -->
 <section class="hero is-small is-light">
   <div class="hero-body">
     <div class="container">
-      <!-- Paper video. -->
       <h2 class="title is-3">Video Presentation</h2>
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          
+
           <div class="publication-video">
-            <!-- Youtube embed code here -->
             <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
         </div>
@@ -269,10 +284,8 @@ Overall, OpenCapBench bridges the computer vision and biomechanics communities, 
     </div>
   </div>
 </section>
-<!-- End youtube video -->
 
 
-<!-- Video carousel -->
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
@@ -280,21 +293,18 @@ Overall, OpenCapBench bridges the computer vision and biomechanics communities, 
       <div id="results-carousel" class="carousel results-carousel">
         <div class="item item-video1">
           <video poster="" id="video1" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
             <source src="static/videos/carousel1.mp4"
             type="video/mp4">
           </video>
         </div>
         <div class="item item-video2">
           <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
             <source src="static/videos/carousel2.mp4"
             type="video/mp4">
           </video>
         </div>
         <div class="item item-video3">
           <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <!-- Your video file here -->
             <source src="static/videos/carousel3.mp4"
             type="video/mp4">
           </video>
@@ -303,14 +313,12 @@ Overall, OpenCapBench bridges the computer vision and biomechanics communities, 
     </div>
   </div>
 </section>
-<!-- End video carousel -->
 
 
 
 
 
 
-<!-- Paper poster -->
 <section class="hero is-small is-light">
   <div class="hero-body">
     <div class="container">
@@ -318,22 +326,20 @@ Overall, OpenCapBench bridges the computer vision and biomechanics communities, 
 
       <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
           </iframe>
-        
+
       </div>
     </div>
   </section>
-<!--End paper poster -->
 
 
-<!--BibTex citation -->
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
       <pre><code>BibTex Code Here</code></pre>
     </div>
 </section>
-<!--End BibTex citation -->
 
+-->
 
   <footer class="footer">
   <div class="container">
@@ -354,7 +360,7 @@ Overall, OpenCapBench bridges the computer vision and biomechanics communities, 
 </footer>
 
 <!-- Statcounter tracking code -->
-  
+
 <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
 
     <!-- End of Statcounter Code -->
