@@ -194,7 +194,7 @@ Overall, OpenCapBench bridges the computer vision and biomechanics communities, 
 <!-- Image carousel -->
 <section class="hero is-small is-light">
   <div class="hero-body">
-    <div class="container">
+    <div class="container is-max-desktop">
       <div id="results-carousel" class="carousel results-carousel">
        <div class="item">
         <!-- Your image here -->
@@ -206,13 +206,32 @@ Overall, OpenCapBench bridges the computer vision and biomechanics communities, 
       </div>
     </div>
     <h2 class="subtitle has-text-centered">
-      SynthPose anatomical markers predictions on OpenCap subjects, with OpenCapBench kinematic outputs.
+      Samples of Synthpose marker predictions on each subject of the OpenCap dataset, with their corresponding OpenSim kinematics output. The pink markers represent anatomical markers on the right side of the body, the cyan markers represent those on the left side, the blue markers represent markers in the center of the body, and the red markers represent markers in the COCO format. The SynthPose model used is HRNet48 fine-tuned on the entire aggregated dataset to predict a set of markers defined in the paper.
     </h2>
   </div>
 </div>
 </div>
 </section>
 <!-- End image carousel -->
+
+<!-- Image header -->
+<section class="hero">
+  <div class="hero-body">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+<div class="container is-max-desktop">
+  <!-- Your image here -->
+    <img src="static/images/OpenCapBench_cr.svg" alt="MY ALT TEXT"/>
+    <h2 class="subtitle has-text-centered">
+      SynthPose significantly improve over computing kinematics from only COCO keypoints, and outperforms SMPL estimation based 2D MoCap landmarks prediction on all joints angles metrics. We emphasize in green results improving over the method used in OpenCap, which uses an LSTM augmenter trained on 108 hours of MoCap data.</h2>
+  </div>
+</div>
+</div>
+</div>
+</section>
+<!-- End image header -->
+
+
 
 <!--
 
