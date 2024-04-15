@@ -21,18 +21,6 @@ class TRCFile(object):
     """
 
     def __init__(self, fpath=None, **kwargs):
-        # path=None,
-        # data_rate=None,
-        # camera_rate=None,
-        # num_frames=None,
-        # num_markers=None,
-        # units=None,
-        # orig_data_rate=None,
-        # orig_data_start_frame=None,
-        # orig_num_frames=None,
-        # marker_names=None,
-        # time=None,
-        # ):
         """
         Parameters
         ----------
@@ -50,8 +38,6 @@ class TRCFile(object):
     def read_from_file(self, fpath):
         # Read the header lines / metadata.
         # ---------------------------------
-        # Split by any whitespace.
-        # TODO may cause issues with paths that have spaces in them.
         f = open(fpath)
         # These are lists of each entry on the first few lines.
         first_line = f.readline().split()

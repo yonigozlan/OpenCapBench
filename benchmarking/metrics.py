@@ -57,7 +57,6 @@ def get_best_shifts_for_metric(exercises_dict, metric):
     for subject in exercises_dict:
         df_dict[subject] = {motFile: {} for motFile in exercises_dict[subject]}
         for motFile in exercises_dict[subject]:
-            # print(subject, motFile)
             if "predicted" in exercises_dict[subject][motFile]:
                 mocapMotPath_gt = exercises_dict[subject][motFile]["gt"]
                 mocapMotPath = exercises_dict[subject][motFile]["predicted"]
@@ -78,7 +77,6 @@ def get_best_shifts_for_metric(exercises_dict, metric):
                     if mse < lowest_mse:
                         lowest_mse = mse
                         best_shift = shift
-                # print(lowest_mse, best_shift)
                 best_shifts[subject][motFile] = (best_shift, lowest_mse)
 
     return best_shifts, df_dict
@@ -106,7 +104,6 @@ def compute_median_shifts(best_shifts_list, df_dict):
 
 def get_metrics(gt_dir, pred_dir, output_dir=None):
     exercises_dict = build_exercises_dict(gt_dir, pred_dir)
-    print(exercises_dict)
     best_shifts_r, df_dict = get_best_shifts_for_metric(exercises_dict, "knee_angle_r")
     best_shifts_l, df_dict = get_best_shifts_for_metric(exercises_dict, "knee_angle_l")
     best_shifts = [best_shifts_r, best_shifts_l]
@@ -158,7 +155,6 @@ def get_metrics(gt_dir, pred_dir, output_dir=None):
         for motFile in rmses[subject]
         if rmses[subject][motFile] is not None
     ]
-    print("list_of_rmses", list_of_rmses)
     concatenated_rmses = pd.concat(list_of_rmses)
     grouped = concatenated_rmses.groupby(level=0)
     mean_rmses = grouped.mean()
@@ -305,7 +301,6 @@ if __name__ == "__main__":
         for motFile in rmses[subject]
         if rmses[subject][motFile] is not None
     ]
-    # print(list_of_rmses)
     concatenated_rmses = pd.concat(list_of_rmses)
     grouped = concatenated_rmses.groupby(level=0)
     mean_rmses = grouped.mean()

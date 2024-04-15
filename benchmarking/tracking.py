@@ -23,7 +23,6 @@ def synchronizeVideos(
     poseDetector="OpenPose",
     trialName=None,
     bbox_thr=0.8,
-    resolutionPoseDetection="default",
     marker_set="Anatomical",
 ):
     markerNames = getMMposeAnatomicalCocoMarkerNames()
@@ -53,10 +52,7 @@ def synchronizeVideos(
             os.path.join(cameraDirectory, trialRelativePath)
         )
         trialPrefix, _ = os.path.splitext(os.path.basename(trialRelativePath))
-        if poseDetector == "OpenPose":
-            outputPklFolder = "OutputPkl_" + resolutionPoseDetection
-        elif poseDetector == "mmpose":
-            outputPklFolder = "OutputPkl_mmpose_" + str(bbox_thr)
+        outputPklFolder = "OutputPkl_mmpose_" + str(bbox_thr)
         openposePklDir = os.path.join(outputPklFolder, trialName)
         pathOutputPkl = os.path.join(cameraDirectory, openposePklDir)
         ppPklPath = os.path.join(pathOutputPkl, trialPrefix + "_rotated_pp.pkl")

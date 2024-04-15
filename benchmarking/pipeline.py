@@ -1,9 +1,7 @@
 import os
 import traceback
 
-import numpy as np
 from calibration import getCamAnglesOffsets, getCameraParameters
-from constants import getMMposeAnatomicalCocoMarkerNames
 from kinematics import runIKTool
 from pose import getUpsampledMarkers, runPoseDetector
 from scaling import getScaleTimeRange, runScaleTool
@@ -19,23 +17,10 @@ def pipeline(
     trialName,
     trial_id,
     camerasToUse=["all"],
-    intrinsicsFinalFolder="Deployed",
-    isDocker=False,
-    extrinsicsTrial=False,
-    alternateExtrinsics=None,
-    calibrationOptions=None,
-    markerDataFolderNameSuffix=None,
-    imageUpsampleFactor=4,
     poseDetector="mmpose",
-    resolutionPoseDetection="default",
     scaleModel=True,
     bbox_thr=0.8,
-    augmenter_model="v0.2",
-    genericFolderNames=False,
-    offset=True,
     benchmark=False,
-    dataDir=None,
-    overwriteAugmenterModel=False,
     runUpsampling=True,
     useGTscaling=True,
 ):
@@ -51,9 +36,7 @@ def pipeline(
     # OpenSim pipeline.
     runOpenSimPipeline = True
     # Lowpass filter frequency of 2D keypoints for gait and everything else.
-    filtFreqs = {"gait": 12, "default": 500}  # defaults to framerate/2
-    # High-resolution for OpenPose.
-    resolutionPoseDetection = resolutionPoseDetection
+    filtFreqs = {"gait": 12, "default": 30}  # defaults to framerate/2
     # Set to False to only generate the json files (default is True).
     # This speeds things up and saves storage space.
     generateVideo = True
@@ -64,7 +47,7 @@ def pipeline(
     sessionDir = os.path.join(config["dataDir"], config["dataName"], sessionName)
     sessionMetadata = importMetadata(os.path.join(sessionDir, "sessionMetadata.yaml"))
 
-    # %% Paths to pose detector folder for local testing.
+    # Paths to pose detector folder for local testing.
     poseDetectorDirectory = config["mmposeDirectory"]
 
     # Camera calibration.
@@ -99,7 +82,6 @@ def pipeline(
             poseDetectorDirectory,
             trialName,
             CamParamDict=CamParamDict,
-            resolutionPoseDetection=resolutionPoseDetection,
             generateVideo=generateVideo,
             cams2Use=camerasToUse,
             poseDetector=poseDetector,
@@ -130,7 +112,6 @@ def pipeline(
                 cams2Use=camerasToUse,
                 poseDetector=poseDetector,
                 trialName=trialName,
-                resolutionPoseDetection=resolutionPoseDetection,
                 marker_set=config["marker_set"],
             )
         except Exception as e:
@@ -168,18 +149,6 @@ def pipeline(
             elif len(e.args) == 1:  # generic exception
                 exception = "Triangulation failed. Verify your setup and try again. Visit https://www.opencap.ai/best-pratices to learn more about data collection and https://www.opencap.ai/troubleshooting for potential causes for a failed trial."
                 raise Exception(exception, traceback.format_exc())
-
-        if config["marker_set"] == "anatomical":
-            if keypoints3D.shape[2] < 10:
-                nb_keypoints = len(getMMposeAnatomicalCocoMarkerNames())
-                keypoints3D = np.zeros((3, nb_keypoints, 10))
-                # keypoints3D = np.zeros((3, 53, 10))
-                # confidence3D = np.zeros((1, 53, 10))
-        else:
-            # Return 0s if not enough data.
-            if keypoints3D.shape[2] < 10:
-                keypoints3D = np.zeros((3, 25, 10))
-                confidence3D = np.zeros((1, 25, 10))
 
         if runUpsampling:
             keypoints3D = getUpsampledMarkers(keypoints3D, frameRate)
@@ -250,18 +219,6 @@ def pipeline(
                 elif len(e.args) == 1:  # generic exception
                     exception = "Musculoskeletal model scaling failed. Verify your setup and try again. Visit https://www.opencap.ai/best-pratices to learn more about data collection and https://www.opencap.ai/troubleshooting for potential causes for a failed neutral pose."
                     raise Exception(exception, traceback.format_exc())
-            # Extract one frame from videos to verify neutral pose.
-            # staticImagesFolderDir = os.path.join(sessionDir, "NeutralPoseImages")
-            # os.makedirs(staticImagesFolderDir, exist_ok=True)
-            # popNeutralPoseImages(
-            #     cameraDirectories,
-            #     cameras2Use,
-            #     timeRange4Scaling[0],
-            #     staticImagesFolderDir,
-            #     trial_id,
-            #     writeVideo=True,
-            # )
-            # pathOutputIK = pathScaledModel[:-5] + ".mot"
 
         # Inverse kinematics.
         if not scaleModel or useGTscaling:
@@ -310,5 +267,3 @@ def pipeline(
                         raise Exception(exception, traceback.format_exc())
             else:
                 raise ValueError("No scaled model available.")
-
-    # %% Dump settings in yaml.

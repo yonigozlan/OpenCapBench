@@ -18,7 +18,6 @@ def runPoseDetector(
     pathPoseDetector,
     trialName,
     CamParamDict=None,
-    resolutionPoseDetection="default",
     generateVideo=True,
     cams2Use=["all"],
     poseDetector="OpenPose",

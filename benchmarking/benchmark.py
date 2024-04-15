@@ -93,6 +93,11 @@ def main():
         default=config["alt_model"],
         help="Alternative model to use for pose detector",
     )
+    parser.add_argument(
+        "--wandb",
+        action="store_true",
+        help="Log metrics to wandb",
+    )
 
     args = parser.parse_args()
 
@@ -119,32 +124,22 @@ def main():
     config["marker_set"] = args.marker_set
     config["alt_model"] = args.alt_model
 
-    if config["subjects"] == "all":
-        subjects = ["subject" + str(i) for i in range(2, 12)]
-    else:
-        subjects = [config["subjects"]]
-    if config["sessions"] == "all":
-        sessions = ["Session0", "Session1"]
-    else:
-        print("config[sessions", config["sessions"])
-        sessions = [config["sessions"]]
-        config["sessions"] = sessions
-
     if not config["skip_pipeline"]:
         process_trials(config)
 
     dataDir = config["dataDir"]
     dataName = config["dataName"]
 
-    print(os.path.join(dataDir, dataName))
     mean_rmses, mean_rmses_no_shift = get_metrics(
         dataDir, os.path.join(dataDir, dataName)
     )
 
-    # Add wandb logging
-    wandb.init(project="opencap_bench", entity="yonigoz", name=config["dataName"])
-    mean_RMSEs_table = wandb.Table(dataframe=mean_rmses)
-    wandb.log({"Mean RMSEs": mean_RMSEs_table})
+    print(type(mean_rmses))
+
+    if args.wandb:
+        wandb.init(project="opencap_bench", entity="yonigoz", name=config["dataName"])
+        mean_RMSEs_table = wandb.Table(dataframe=mean_rmses)
+        wandb.log({"Mean RMSEs": mean_RMSEs_table})
 
 
 def process_trials(config):
@@ -164,12 +159,11 @@ def process_trials(config):
     if config["sessions"] == "all":
         sessions = ["Session0", "Session1"]
     else:
-        sessions = config["sessions"]
+        sessions = [config["sessions"]]
     sessionNames = [
         "{}_{}".format(subject, session) for subject in subjects for session in sessions
     ]
 
-    # We only support OpenPose on Windows.
     poseDetectors = ["mmpose"]
 
     # Select the camera configuration you would like to use.
@@ -179,14 +173,7 @@ def process_trials(config):
     # Select the resolution at which you would like to use OpenPose. More details
     # about the options in Examples/reprocessSessions. In the paper, we compared
     # 'default' and '1x1008_4scales'.
-    resolutionPoseDetection = "default"
 
-    # Since the prepint release, we updated a new augmenter model. To use the model
-    # used for generating the paper results, select v0.1. To use the latest model
-    # (now in production), select v0.2.
-    augmenter_model = "v0.2"
-
-    # %% Data re-organization
     # To reprocess the data, we need to re-organize the data so that the folder
     # structure is the same one as the one expected by OpenCap. It is only done
     # once as long as the variable overwriteRestructuring is False. To overwrite
@@ -298,7 +285,6 @@ def process_trials(config):
                     camDir_0 = os.path.join(
                         sessionDir_0,
                         "OpenSimData",
-                        # poseDetector + "_" + resolutionPoseDetection,
                         poseDetector + "_0.8",
                         cameraSetup,
                     )
@@ -306,7 +292,6 @@ def process_trials(config):
                     camDir_1 = os.path.join(
                         sessionDir,
                         "OpenSimData",
-                        # poseDetector + "_" + resolutionPoseDetection,
                         poseDetector + "_0.8",
                         cameraSetup,
                     )
@@ -324,9 +309,6 @@ def process_trials(config):
                     # Detect if extrinsics trial to compute extrinsic parameters.
                     if "extrinsics" in trial.lower():
                         continue
-                        extrinsicsTrial = True
-                    else:
-                        extrinsicsTrial = False
 
                     # Detect if static trial with neutral pose to scale model.
                     if "static" in trial.lower():
@@ -334,26 +316,14 @@ def process_trials(config):
                     else:
                         scaleModel = False
 
-                    # Session specific intrinsic parameters
-                    if "subject2" in sessionName or "subject3" in sessionName:
-                        intrinsicsFinalFolder = "Deployed_720_240fps"
-                    else:
-                        intrinsicsFinalFolder = "Deployed_720_60fps"
-
                     pipeline(
                         config,
                         sessionName=sessionName,
                         trialName=trial,
                         trial_id=trial,
                         camerasToUse=cam2Use,
-                        intrinsicsFinalFolder=intrinsicsFinalFolder,
-                        extrinsicsTrial=extrinsicsTrial,
-                        markerDataFolderNameSuffix=cameraSetup,
                         poseDetector=poseDetector,
-                        resolutionPoseDetection=resolutionPoseDetection,
                         scaleModel=scaleModel,
-                        augmenter_model=augmenter_model,
-                        dataDir=dataDir,
                         useGTscaling=useGTscaling,
                     )
 
