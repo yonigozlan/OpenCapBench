@@ -27,24 +27,23 @@ def mot_to_df(motPath):
 def build_exercises_dict(gt_path, pred_path):
     # get all mot files in the directory
     subjects_dict = {}
-
-    subjects_dir = glob.glob(gt_path + "/subject*")
+    subjects_dir = glob.glob(os.path.join(gt_path,"subject*"))
     for dir in subjects_dir:
-        motFiles = glob.glob(dir + "/OpenSimData/Mocap/IK/*.mot")
-        subject_key = dir.split("/")[-1]
+        motFiles = glob.glob(os.path.join(dir,"OpenSimData/Mocap/IK/*.mot"))
+        subject_key = dir.split(os.sep)[-1]
         for motFile in motFiles:
             if subject_key not in subjects_dict:
-                subjects_dict[subject_key] = {motFile.split("/")[-1]: {"gt": motFile}}
+                subjects_dict[subject_key] = {motFile.split(os.sep)[-1]: {"gt": motFile}}
             else:
-                subjects_dict[subject_key][motFile.split("/")[-1]] = {"gt": motFile}
+                subjects_dict[subject_key][motFile.split(os.sep)[-1]] = {"gt": motFile}
 
-    predicted_subjects_dir = glob.glob(pred_path + "/subject*")
+    predicted_subjects_dir = glob.glob(os.path.join(pred_path, "subject*"))
     for dir in predicted_subjects_dir:
-        motFiles = glob.glob(dir + "/OpenSimData/Kinematics/*.mot")
-        subject_key = dir.split("/")[-1].split("_")[0]
+        motFiles = glob.glob(os.path.join(dir, "OpenSimData/Kinematics/*.mot"))
+        subject_key = dir.split(os.sep)[-1].split("_")[0]
         for motFile in motFiles:
-            if motFile.split("/")[-1] in subjects_dict[subject_key]:
-                subjects_dict[subject_key][motFile.split("/")[-1]][
+            if motFile.split(os.sep)[-1] in subjects_dict[subject_key]:
+                subjects_dict[subject_key][motFile.split(os.sep)[-1]][
                     "predicted"
                 ] = motFile
 
@@ -171,7 +170,7 @@ def get_metrics(gt_dir, pred_dir, output_dir=None):
     print("mean rmses: ", mean_rmses)
     # export to csv
     mean_rmses.to_csv(
-        os.path.join(output_dir, pred_dir.split("/")[-1] + "mean_rmses.csv")
+        os.path.join(output_dir, pred_dir.split(os.sep)[-1] + "mean_rmses.csv")
     )
 
     # same but without the median shift
@@ -230,7 +229,7 @@ def get_metrics(gt_dir, pred_dir, output_dir=None):
     print("mean_rmses_no_shift: ", mean_rmses_no_shift)
     # export to csv
     mean_rmses_no_shift.to_csv(
-        os.path.join(output_dir, pred_dir.split("/")[-1] + "mean_rmses_no_shift.csv")
+        os.path.join(output_dir, pred_dir.split(os.sep)[-1] + "mean_rmses_no_shift.csv")
     )
 
     return mean_rmses, mean_rmses_no_shift

@@ -77,8 +77,11 @@ def runPoseVideo(
     # mmposeBoxDir = os.path.join("OutputBox_mmpose", trialName)
     pathOutputBox = config_benchmark["OutputBoxDirectory"]
     pathOutputBox = os.path.join(
-        cameraDirectory.replace(
-            config_benchmark["dataName"], config_benchmark["OutputBoxDirectory"]
+        config_benchmark["OutputBoxDirectory"].join(
+            [
+                config_benchmark["dataName"].join(cameraDirectory.split(config_benchmark["dataName"])[:-1]),
+                cameraDirectory.split(config_benchmark["dataName"])[-1]
+            ]
         ),
         trialName,
     )

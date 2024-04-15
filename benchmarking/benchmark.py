@@ -107,7 +107,7 @@ def main():
     config["model_ckpt_person"] = args.model_ckpt_person
     config["model_config_pose"] = args.model_config_pose
     config["model_ckpt_pose"] = args.model_ckpt_pose
-    if config_global == "local":
+    if config_global == "local" or config_global == "windows":
         config["model_ckpt_pose_absolute"] = os.path.join(
             config["mmposeDirectory"], config["model_ckpt_pose"]
         )
@@ -203,7 +203,7 @@ def process_trials(config):
                     "OpenSimData",
                     "Mocap",
                     "Model",
-                    "LaiArnoldModified2017_poly_withArms_weldHand_scaled.osim",
+                    "LaiArnoldModified2017_poly_withArms_weldHand_scaled_adjusted.osim",
                 )
                 shutil.copy2(pathModel, pathSessionNew)
             # Adjust model name

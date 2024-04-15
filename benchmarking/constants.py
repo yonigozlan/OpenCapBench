@@ -1,6 +1,6 @@
 import os
 
-config_global = "local"  # "local" or "sherlock"
+config_global = "sherlock"  # "local" or "sherlock"
 
 config_base_local = {
     "mmposeDirectory": "/home/yoni/OneDrive_yonigoz@stanford.edu/RA/Code/mmpose",
@@ -22,9 +22,32 @@ config_base_local = {
     "marker_set": "Anatomical",  # "Coco" or "Anatomical"
     "alt_model": None,  # None or "VirtualMarker" or "CLIFF"
 }
+
 config_base_local["model_ckpt_pose_absolute"] = os.path.join(
     config_base_local["mmposeDirectory"], config_base_local["model_ckpt_pose"]
 )
+
+config_base_windows = {
+    "mmposeDirectory": "C:/Data/OpenCap/mmpose",
+    "OutputBoxDirectory": "OutputBox",
+    "model_config_person": "demo/mmdetection_cfg/faster_rcnn_r50_fpn_coco.py",
+    "model_ckpt_person": "https://download.openmmlab.com/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_fpn_1x_coco/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth",
+    # "model_config_person" : "demo/mmdetection_cfg/configs/convnext/cascade-mask-rcnn_convnext-t-p4-w7_fpn_4conv1fc-giou_amp-ms-crop-3x_coco.py",
+    # "model_ckpt_person" :"https://download.openmmlab.com/mmdetection/v2.0/convnext/cascade_mask_rcnn_convnext-t_p4_w7_fpn_giou_4conv1f_fp16_ms-crop_3x_coco/cascade_mask_rcnn_convnext-t_p4_w7_fpn_giou_4conv1f_fp16_ms-crop_3x_coco_20220509_204200-8f07c40b.pth",
+    # "model_config_pose" : "configs/wholebody_2d_keypoint/topdown_heatmap/coco-wholebody/td-hm_hrnet-w48_dark-8xb32-210e_coco-wholebody-384x288.py",
+    # "model_config_pose" : "configs/body_2d_keypoint/topdown_heatmap/coco/td-hm_hrnet-w48_dark-8xb32-210e_coco-384x288.py",
+    # "model_ckpt_pose" : "pretrain/coco/td-hm_hrnet-w48_dark-8xb32-210e_coco-384x288-39c3c381_20220916.pth",
+    # "model_ckpt_pose" : "pretrain/coco/hrnet_w48_coco_wholebody_384x288_dark-f5726563_20200918.pth",
+    "model_config_pose": "configs/body_2d_keypoint/topdown_heatmap/infinity/hrnet48/td-hm_hrnet-w48_dark-8xb32-210e_merge_bedlam_infinity_coco_3DPW_eval_rich-384x288_pretrained.py",
+    "model_ckpt_pose": "C:/Data/OpenCapBench/data/models/epoch_30.pth",
+    "dataDir": "C:/Data/OpenCapBench/data",
+    "batch_size_det": 4,
+    "batch_size_pose": 32,
+    "useGTscaling": True,
+    "marker_set": "Anatomical",  # "Coco" or "Anatomical"
+    "alt_model": None,  # None or "VirtualMarker" or "CLIFF"
+}
+
 
 
 config_base_sherlock = {
@@ -54,6 +77,8 @@ if config_global == "local":
     config = config_base_local
 if config_global == "sherlock":
     config = config_base_sherlock
+if config_global == "windows":
+    config = config_base_windows
 
 
 def getMMposeAnatomicalCocoMarkerNames():

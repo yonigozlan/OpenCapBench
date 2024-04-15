@@ -228,7 +228,7 @@ def pipeline(
             if useGTscaling:
                 pathScaledModel = os.path.join(
                     sessionDir,
-                    "LaiArnoldModified2017_poly_withArms_weldHand_scaled.osim",
+                    "LaiArnoldModified2017_poly_withArms_weldHand_scaled_adjusted.osim",
                 )
             else:
                 pathScaledModel = os.path.join(
@@ -238,7 +238,7 @@ def pipeline(
             if os.path.exists(pathScaledModel):
                 # Path setup file.
                 if config["marker_set"] == "Anatomical":
-                    genericSetupFile4IKName = "Setup_IK_mmpose_final{}.xml".format(
+                    genericSetupFile4IKName = "Setup_IK_mmpose_final_adjusted{}.xml".format(
                         suffix_model
                     )
                 elif config["marker_set"] == "Coco":
