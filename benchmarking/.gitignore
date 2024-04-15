@@ -1,0 +1,34 @@
+*.mp4
+#*.mov
+*~
+#*.json
+.ipynb_checkpoints
+__pycache__
+*.log
+*WithKeypoints.avi
+*_rotated.avi
+.env
+*.pth
+*.ipynb
+
+# Data
+*/Data/*
+Data/
+Examples/Data/*
+
+# Logging
+wandb/
+
+# Files for re-processing
+Examples/reprocessSessionServer.py
+
+*.ini
+*.stats
+
+tests/
+slurm/
+
+newsletter.py
+
+VirtualMarker
+CLIFF
