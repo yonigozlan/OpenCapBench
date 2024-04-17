@@ -1,6 +1,6 @@
 import os
 
-config_global = "sherlock"  # "local" or "sherlock"
+config_global = "windows"  # "local" or "windows" or "sherlock"
 
 config_base_local = {
     "mmposeDirectory": "/home/yoni/OneDrive_yonigoz@stanford.edu/RA/Code/mmpose",

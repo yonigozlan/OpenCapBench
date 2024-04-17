@@ -40,7 +40,7 @@ def runScaleTool(
                 suffix_model
             )
         elif "anatomical" in setupFileName or "final" in setupFileName:
-            markerSetFileName = "RajagopalModified2016_markers_mmpose_final.xml"
+            markerSetFileName = "RajagopalModified2016_markers_mmpose_final_adjusted.xml"
         elif "openpose" in setupFileName:
             markerSetFileName = "RajagopalModified2016_markers_openpose.xml"
         elif "mmpose" in setupFileName:

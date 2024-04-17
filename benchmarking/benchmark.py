@@ -285,15 +285,11 @@ def process_trials(config):
                     camDir_0 = os.path.join(
                         sessionDir_0,
                         "OpenSimData",
-                        poseDetector + "_0.8",
-                        cameraSetup,
                     )
                     modelDir_0 = os.path.join(camDir_0, "Model")
                     camDir_1 = os.path.join(
                         sessionDir,
                         "OpenSimData",
-                        poseDetector + "_0.8",
-                        cameraSetup,
                     )
                     modelDir_1 = os.path.join(camDir_1, "Model")
                     os.makedirs(modelDir_1, exist_ok=True)

@@ -368,6 +368,7 @@ class CustomVideoDataset(Dataset):
     def __init__(
         self, video_path, bbox_path, bbox_threshold, pipeline, config, dataset_meta
     ):
+        print("Je suis Poni et je trqin du CNN desfois")
         # load video
         self.capture = cv2.VideoCapture(video_path)
         assert self.capture.isOpened(), f"Failed to load video file {video_path}"
